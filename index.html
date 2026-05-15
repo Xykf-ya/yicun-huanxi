@@ -6,8 +6,26 @@
 <title>一寸欢喜 · 森林手记</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Noto+Serif+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
+/* ── Cause Font (English / Latin only) ── */
+@font-face {
+  font-family: 'Cause';
+  src: url('cause/static/Cause-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0020-007F, U+00A0-00FF, U+0100-017F, U+0180-024F, U+2000-206F, U+20AC, U+2122;
+}
+@font-face {
+  font-family: 'Cause';
+  src: url('cause/static/Cause-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0020-007F, U+00A0-00FF, U+0100-017F, U+0180-024F, U+2000-206F, U+20AC, U+2122;
+}
+
 :root {
   --forest-deep: #2d5a27;
   --forest-mid: #4a7c3f;
@@ -34,7 +52,7 @@
 
 html { scroll-behavior:smooth; }
 body {
-  font-family: 'Noto Serif SC', 'Playfair Display', serif;
+  font-family: 'Cause', 'Noto Serif SC', serif;
   background: var(--paper);
   color: var(--text);
   line-height: 1.8;
@@ -96,9 +114,9 @@ nav.scrolled {
   box-shadow: 0 1px 20px rgba(45,90,39,0.06);
 }
 .nav-logo {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Cause', sans-serif;
+  font-weight: 700;
   font-size: 1.4rem;
-  font-style: italic;
   color: var(--cream);
   transition: color .4s;
   text-shadow: 0 1px 3px rgba(0,0,0,0.2);
@@ -111,7 +129,6 @@ nav.scrolled .nav-logo { color: var(--forest-deep); text-shadow: none; }
   font-size: .9rem;
   letter-spacing: .03em;
   transition: color .3s;
-  font-family: 'Noto Serif SC', serif;
 }
 nav.scrolled .nav-links a { color: var(--text-soft); }
 .nav-links a:hover { color: var(--gold); }
@@ -167,8 +184,8 @@ nav.scrolled .nav-links a:hover { color: var(--amber); }
 }
 .hero-content { position:relative; z-index:3; }
 .hero-greeting {
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
+  font-family: 'Cause', sans-serif;
+  font-weight: 700;
   font-size: 1.2rem;
   color: var(--gold-light);
   margin-bottom: 16px;
@@ -177,8 +194,8 @@ nav.scrolled .nav-links a:hover { color: var(--amber); }
 }
 .hero-title {
   font-family: 'Noto Serif SC', serif;
-  font-size: clamp(3rem, 7vw, 5.5rem);
   font-weight: 700;
+  font-size: clamp(3rem, 7vw, 5.5rem);
   color: #fff;
   letter-spacing: .08em;
   margin-bottom: 24px;
@@ -187,50 +204,57 @@ nav.scrolled .nav-links a:hover { color: var(--amber); }
   text-shadow: 0 2px 30px rgba(0,0,0,0.25);
 }
 .hero-quote {
-  font-family: 'Noto Serif SC', serif;
   font-size: clamp(1rem, 2vw, 1.3rem);
   color: rgba(255,255,255,0.8);
   line-height: 2;
   opacity: 0;
   animation: fadeUp .8s .7s forwards;
 }
-.hero-quote em { font-style:italic; color: var(--gold-light); }
+.hero-quote em { color: var(--gold-light); }
 .hero-quote .author { font-size:.85rem; color:rgba(255,255,255,0.55); margin-top:8px; }
-.hero-scroll {
-  position: absolute;
-  bottom: 100px;
-  z-index: 3;
-  opacity: 0;
-  animation: fadeUp .8s 1.2s forwards, bounce 2s 1.5s infinite;
-}
-.hero-scroll span {
-  display: block;
-  width: 28px; height: 44px;
-  border: 2px solid rgba(255,255,255,0.5);
-  border-radius: 14px;
-  position: relative;
-}
-.hero-scroll span::after {
-  content: '';
-  position: absolute;
-  top: 8px; left: 50%;
-  transform: translateX(-50%);
-  width: 4px; height: 10px;
-  background: rgba(255,255,255,0.7);
-  border-radius: 2px;
-  animation: scrollDot 2s infinite;
-}
-@keyframes scrollDot {
-  0% { top:8px; opacity:1; }
-  100% { top:24px; opacity:0; }
-}
+
 @keyframes fadeUp {
   from { opacity:0; transform:translateY(30px); }
   to { opacity:1; transform:translateY(0); }
 }
-@keyframes bounce {
-  0%,100% { transform:translateY(0); }
-  50% { transform:translateY(8px); }
+
+/* ── Section Scroll Arrow ── */
+.section-nav {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  cursor: pointer;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all .35s ease;
+  opacity: 0.22;
+}
+section:hover .section-nav,
+.hero:hover .section-nav { opacity: 0.55; }
+.section-nav:hover { opacity: 1 !important; background: rgba(0,0,0,0.06); }
+.section-nav::after {
+  content: '';
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  animation: navBob 2s ease-in-out infinite;
+}
+.hero .section-nav { color: rgba(255,255,255,0.85); bottom: 60px; opacity: 0.35; }
+.hero:hover .section-nav { opacity: 0.7; }
+section .section-nav { color: var(--moss); }
+
+@keyframes navBob {
+  0%, 100% { transform: rotate(45deg) translateY(0); }
+  50% { transform: rotate(45deg) translateY(5px); }
 }
 
 /* ── Section Common ── */
@@ -244,8 +268,8 @@ section {
   margin: 0 auto;
 }
 .section-label {
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
+  font-family: 'Cause', sans-serif;
+  font-weight: 700;
   font-size: .9rem;
   color: var(--moss);
   margin-bottom: 8px;
@@ -253,8 +277,8 @@ section {
 }
 .section-title {
   font-family: 'Noto Serif SC', serif;
-  font-size: clamp(1.8rem, 3vw, 2.4rem);
   font-weight: 600;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
   color: var(--forest-deep);
   margin-bottom: 48px;
   position: relative;
@@ -339,7 +363,7 @@ section {
 .about-card .field:last-child { border-bottom:none; }
 .about-card .field-label {
   color: var(--moss);
-  font-weight: 500;
+  font-weight: 600;
   min-width: 80px;
   flex-shrink: 0;
 }
@@ -360,7 +384,6 @@ section {
   background: transparent;
   color: var(--forest-mid);
   cursor: pointer;
-  font-family: 'Noto Serif SC', serif;
   font-size: .9rem;
   transition: all .3s;
 }
@@ -372,40 +395,140 @@ section {
 .hobby-panel { display:none; }
 .hobby-panel.active { display:block; animation: fadeUp .5s ease; }
 
-/* ── Image Gallery ── */
-.gallery {
+/* ── 3:4 Portrait Card Grid ── */
+.show-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 16px;
-  margin-top: 20px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 860px;
+  margin: 0 auto;
 }
-.gallery img {
-  width: 100%;
-  height: 240px;
-  object-fit: cover;
+.show-card {
+  background: var(--paper);
   border-radius: var(--radius);
-  transition: transform .4s, box-shadow .4s;
-  cursor: pointer;
+  overflow: hidden;
   box-shadow: var(--shadow-soft);
-  background: var(--cream);
+  border: 1px solid rgba(138,170,94,0.1);
+  transition: transform .35s, box-shadow .35s;
+  display: flex;
+  flex-direction: column;
 }
-.gallery img:hover {
-  transform: scale(1.03);
-  box-shadow: 0 8px 40px rgba(45,90,39,0.18);
+.show-card.clickable { cursor: pointer; }
+.show-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card);
 }
-.gallery-caption {
-  font-size: .85rem;
-  color: var(--text-muted);
+.show-card-img {
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  position: relative;
+}
+.show-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .5s;
+}
+.show-card:hover .show-card-img img { transform: scale(1.05); }
+.show-card-body {
+  padding: 14px 12px;
   text-align: center;
-  margin-top: 8px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.show-card-body h4 {
+  font-family: 'Noto Serif SC', serif;
+  font-weight: 600;
+  color: var(--forest-mid);
+  font-size: .95rem;
+  margin-bottom: 4px;
+}
+.show-card-body p {
+  font-size: .78rem;
+  color: var(--text-muted);
+  line-height: 1.5;
 }
 
-/* ── TV Show Cards ── */
-.show-list { display:flex; flex-direction:column; gap:24px; }
-.show-item { display:flex; gap:20px; align-items:flex-start; background:var(--paper); border-radius:var(--radius); padding:20px; box-shadow:var(--shadow-soft); border:1px solid rgba(138,170,94,0.1); }
-.show-item img { width:140px; height:200px; object-fit:cover; border-radius:10px; flex-shrink:0; }
-.show-item h4 { font-family:'Noto Serif SC',serif; color:var(--forest-mid); margin-bottom:4px; }
-.show-item p { font-size:.85rem; color:var(--text-muted); }
+/* ── Album Viewer Overlay (flip + blur bg) ── */
+.album-viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.album-viewer.open { display: flex; }
+.album-viewer-bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  cursor: pointer;
+}
+.album-viewer-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  max-width: 92vw;
+}
+.album-viewer-content img {
+  height: auto;
+  max-height: 65vh;
+  max-width: min(400px, 30vw);
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.45);
+  animation: flipIn .55s cubic-bezier(.4,0,.2,1) both;
+  cursor: default;
+}
+.album-viewer-content img:nth-child(1) { animation-delay: 0s; }
+.album-viewer-content img:nth-child(2) { animation-delay: .08s; }
+.album-viewer-content img:nth-child(3) { animation-delay: .16s; }
+.album-viewer-content img:nth-child(4) { animation-delay: .22s; }
+
+@keyframes flipIn {
+  0% { transform: rotateY(85deg) scale(0.75); opacity: 0; }
+  100% { transform: rotateY(0deg) scale(1); opacity: 1; }
+}
+.album-viewer-close {
+  position: absolute;
+  top: 24px;
+  right: 32px;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  transition: background .3s;
+}
+.album-viewer-close:hover { background: rgba(255,255,255,0.25); }
+.album-viewer-close::before, .album-viewer-close::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 1.5px;
+  background: rgba(255,255,255,0.8);
+  border-radius: 1px;
+}
+.album-viewer-close::before { transform: rotate(45deg); }
+.album-viewer-close::after { transform: rotate(-45deg); }
+
+/* hidden data storage for album images */
+.album-data { display: none; }
 
 /* ── Goals Cards ── */
 .goals-grid {
@@ -427,26 +550,57 @@ section {
   box-shadow: var(--shadow-card);
 }
 .goal-icon { font-size:2.4rem; margin-bottom:12px; }
-.goal-card h4 { font-family:'Noto Serif SC',serif; color:var(--forest-mid); margin-bottom:8px; }
+.goal-card h4 {
+  font-family: 'Noto Serif SC', serif;
+  font-weight: 600;
+  color: var(--forest-mid);
+  margin-bottom: 8px;
+}
 .goal-card p { font-size:.85rem; color:var(--text-soft); line-height:1.7; }
 
 /* ── Words Section ── */
 #words { background: var(--cream); }
 .words-block {
   max-width: 680px;
-  margin: 0 auto 40px;
-  font-size: 1.05rem;
-  line-height: 2.1;
-  color: var(--text);
+  margin: 0 auto 32px;
   position: relative;
   padding-left: 28px;
   border-left: 2px solid var(--leaf);
 }
-.words-block h5 {
+.words-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
   font-family: 'Noto Serif SC', serif;
+  font-weight: 600;
   color: var(--forest-mid);
   font-size: 1.1rem;
-  margin-bottom: 8px;
+  padding: 4px 0;
+  user-select: none;
+  transition: color .3s;
+}
+.words-toggle:hover { color: var(--amber); }
+.words-chevron {
+  display: inline-block;
+  transition: transform .4s cubic-bezier(.4,0,.2,1);
+  font-size: .75rem;
+  opacity: 0.5;
+}
+.words-block.expanded .words-chevron { transform: rotate(180deg); }
+.words-body {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height .5s cubic-bezier(.4,0,.2,1), opacity .35s ease, margin .35s ease;
+  font-size: 1.05rem;
+  line-height: 2.1;
+  color: var(--text);
+}
+.words-block.expanded .words-body {
+  max-height: 800px;
+  opacity: 1;
+  margin-top: 8px;
 }
 .words-image {
   max-width: 500px;
@@ -455,7 +609,7 @@ section {
   overflow: hidden;
   box-shadow: var(--shadow-card);
 }
-.words-image img { width:100%; display:block; }
+.words-image img { width:100%; display:block; cursor:pointer; }
 
 /* ── Footer ── */
 footer {
@@ -477,8 +631,8 @@ footer::before {
 footer p { margin:6px 0; font-size:.9rem; }
 footer .heart { color:var(--gold); }
 .footer-quote {
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
+  font-family: 'Noto Serif SC', serif;
+  font-weight: 600;
   font-size: 1.1rem;
   color: var(--gold-light);
   margin-bottom: 20px;
@@ -515,7 +669,27 @@ footer .heart { color:var(--gold); }
   box-shadow: 0 20px 60px rgba(0,0,0,.5);
 }
 
+/* ── Extra text block ── */
+.extra-list {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: .9rem;
+  padding: 20px;
+  grid-column: 1 / -1;
+}
+
+/* ── Panel intro text ── */
+.panel-intro {
+  text-align: center;
+  color: var(--text-soft);
+  margin-bottom: 24px;
+}
+
 /* ── Responsive ── */
+@media (max-width: 900px) {
+  .show-grid { grid-template-columns: repeat(2, 1fr); }
+  .album-viewer-content img { max-width: min(400px, 42vw); }
+}
 @media (max-width: 768px) {
   nav { padding:14px 20px; }
   .nav-links { gap:16px; }
@@ -523,19 +697,18 @@ footer .heart { color:var(--gold); }
   .hero-title { font-size: 2.5rem; }
   section { padding: 60px 16px; }
   .about-card { padding: 32px 20px; }
-  .gallery { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap:10px; }
-  .gallery img { height:160px; }
-  .show-item { flex-direction:column; }
-  .show-item img { width:100%; height:180px; }
   .goals-grid { grid-template-columns: 1fr 1fr; }
   .hobby-tabs { gap:6px; }
   .hobby-tab { padding:6px 14px; font-size:.8rem; }
-  .words-block { padding-left:16px; font-size:.95rem; }
+  .words-block { padding-left:16px; }
+  .album-viewer-content { gap: 14px; padding: 24px; }
+  .album-viewer-content img { max-width: min(400px, 80vw); max-height: 40vh; }
 }
-
 @media (max-width: 480px) {
+  .show-grid { grid-template-columns: repeat(2, 1fr); gap:12px; }
   .hero-title { font-size: 2rem; }
   .goals-grid { grid-template-columns: 1fr; }
+  .album-viewer-content img { max-width: 85vw; max-height: 35vh; }
 }
 </style>
 </head>
@@ -565,7 +738,7 @@ footer .heart { color:var(--gold); }
       <p class="author">—— 阿蒂尔·兰波</p>
     </div>
   </div>
-  <div class="hero-scroll"><span></span></div>
+  <div class="section-nav" data-target="#about"></div>
 </section>
 
 <!-- About -->
@@ -586,6 +759,7 @@ footer .heart { color:var(--gold); }
       <div class="field"><span class="field-label">邮箱</span><span class="field-value">pengshixuan@zju.edu.cn</span></div>
     </div>
   </div>
+  <div class="section-nav" data-target="#hobbies"></div>
 </section>
 
 <div class="leaf-divider">🍃</div>
@@ -610,12 +784,24 @@ footer .heart { color:var(--gold); }
 
     <!-- TV Shows -->
     <div class="hobby-panel active" id="panel-tv">
-      <div class="show-list">
-        <div class="show-item reveal"><img src="images/img00.webp" alt="去有风的地方" loading="lazy"><div><h4>去有风的地方</h4><p>治愈系田园生活，大理的风与慢时光</p></div></div>
-        <div class="show-item reveal"><img src="images/img01.webp" alt="装腔启示录" loading="lazy"><div><h4>装腔启示录</h4><p>都市男女的情感博弈</p></div></div>
-        <div class="show-item reveal"><img src="images/img02.webp" alt="与恶魔有约" loading="lazy"><div><h4>与恶魔有约</h4><p>奇幻浪漫韩剧</p></div></div>
-        <div class="show-item reveal"><img src="images/img03.webp" alt="爱情怎么翻译" loading="lazy"><div><h4>爱情怎么翻译</h4><p>语言与爱情的交织</p></div></div>
-        <div class="reveal" style="padding:20px;color:var(--text-muted);font-size:.9rem;">
+      <div class="show-grid">
+        <div class="show-card reveal">
+          <div class="show-card-img"><img src="images/img00.webp" alt="去有风的地方" loading="lazy"></div>
+          <div class="show-card-body"><h4>去有风的地方</h4><p>治愈系田园生活，大理的风与慢时光</p></div>
+        </div>
+        <div class="show-card reveal">
+          <div class="show-card-img"><img src="images/img01.webp" alt="装腔启示录" loading="lazy"></div>
+          <div class="show-card-body"><h4>装腔启示录</h4><p>都市男女的情感博弈</p></div>
+        </div>
+        <div class="show-card reveal">
+          <div class="show-card-img"><img src="images/img02.webp" alt="与恶魔有约" loading="lazy"></div>
+          <div class="show-card-body"><h4>与恶魔有约</h4><p>奇幻浪漫韩剧</p></div>
+        </div>
+        <div class="show-card reveal">
+          <div class="show-card-img"><img src="images/img03.webp" alt="爱情怎么翻译" loading="lazy"></div>
+          <div class="show-card-body"><h4>爱情怎么翻译</h4><p>语言与爱情的交织</p></div>
+        </div>
+        <div class="reveal extra-list">
           <p>还喜欢：<strong>鬼怪</strong> · <strong>怪奇物语</strong> · <strong>权力的游戏</strong> · <strong>唐顿庄园</strong></p>
         </div>
       </div>
@@ -623,27 +809,34 @@ footer .heart { color:var(--gold); }
 
     <!-- Variety Shows -->
     <div class="hobby-panel" id="panel-variety">
-      <div class="reveal" style="max-width:600px;margin:0 auto;">
-        <div class="goal-card"><div class="goal-icon">🎬</div><h4>初入职场的我们 · 法医季</h4></div>
-        <div class="goal-card" style="margin-top:16px;"><div class="goal-icon">💼</div><h4>令人心动的offer</h4><p>律师季 · 播音季</p></div>
+      <div class="show-grid">
+        <div class="show-card reveal">
+          <div class="show-card-img" style="background:linear-gradient(135deg, #e8d5b0, #d4a84b); display:flex; align-items:center; justify-content:center; font-size:3rem;">🎬</div>
+          <div class="show-card-body"><h4>初入职场的我们</h4><p>法医季</p></div>
+        </div>
+        <div class="show-card reveal">
+          <div class="show-card-img" style="background:linear-gradient(135deg, #c4d4e0, #8aaaae); display:flex; align-items:center; justify-content:center; font-size:3rem;">💼</div>
+          <div class="show-card-body"><h4>令人心动的offer</h4><p>律师季 · 播音季</p></div>
+        </div>
       </div>
     </div>
 
     <!-- Photography -->
     <div class="hobby-panel" id="panel-photo">
-      <p class="reveal" style="color:var(--text-soft);margin-bottom:20px;text-align:center;">风光和人像摄影都不是很擅长，倒是喜欢活动摄影。在融媒体中心摄影部、院学生会视频部，得到了一些大型活动的摄影机会。</p>
-      <p class="reveal" style="color:var(--forest-mid);font-weight:500;margin-bottom:16px;">在浙大新年狂欢夜近台拍摄</p>
-      <div class="gallery reveal">
-        <img src="images/img04.webp" alt="浙大新年狂欢夜1" loading="lazy">
-        <img src="images/img05.webp" alt="浙大新年狂欢夜2" loading="lazy">
-        <img src="images/img06.webp" alt="浙大新年狂欢夜3" loading="lazy">
+      <p class="reveal panel-intro">风光和人像摄影都不是很擅长，倒是喜欢活动摄影。在融媒体中心摄影部、院学生会视频部，得到了一些大型活动的摄影机会。</p>
+
+      <div class="show-grid">
+        <div class="show-card clickable album-trigger reveal" data-album="photo-nye">
+          <div class="show-card-img"><img src="images/img04.webp" alt="浙大新年狂欢夜" loading="lazy"></div>
+          <div class="show-card-body"><h4>浙大新年狂欢夜</h4><p>近台拍摄</p></div>
+        </div>
+        <div class="show-card clickable album-trigger reveal" data-album="photo-media">
+          <div class="show-card-img"><img src="images/img07.webp" alt="传媒学院新年晚会" loading="lazy"></div>
+          <div class="show-card-body"><h4>传媒学院新年晚会</h4><p>图片直播</p></div>
+        </div>
       </div>
-      <p class="reveal" style="color:var(--forest-mid);font-weight:500;margin:24px 0 16px;">参与传媒学院新年晚会图片直播</p>
-      <div class="gallery reveal">
-        <img src="images/img07.webp" alt="新年晚会1" loading="lazy">
-        <img src="images/img08.webp" alt="新年晚会2" loading="lazy">
-      </div>
-      <p class="reveal" style="text-align:center;color:var(--text-soft);margin-top:20px;">我喜欢在幕后。定格精彩的瞬间让人幸福 ☺️</p>
+
+      <p class="reveal" style="text-align:center;color:var(--text-soft);margin-top:24px;">我喜欢在幕后。定格精彩的瞬间让人幸福 ☺️</p>
       <p class="reveal" style="text-align:center;color:var(--text-muted);font-size:.9rem;">还是想精进人像摄影技术的，欢迎找我互勉哇！我们可以互为摄影师互为模特</p>
     </div>
 
@@ -651,47 +844,55 @@ footer .heart { color:var(--gold); }
     <div class="hobby-panel" id="panel-movie">
       <div class="reveal" style="text-align:center;">
         <p style="color:var(--text-soft);margin-bottom:20px;">最近看了《我，许可》和《非穷尽列举》 喜欢～</p>
-        <img src="images/img09.webp" alt="电影" loading="lazy" style="max-width:400px;width:100%;border-radius:var(--radius);box-shadow:var(--shadow-card);">
+        <img src="images/img09.webp" alt="电影" loading="lazy" style="max-width:400px;width:100%;border-radius:var(--radius);box-shadow:var(--shadow-card);cursor:pointer;" class="lightbox-trigger">
       </div>
     </div>
 
     <!-- Exhibitions -->
     <div class="hobby-panel" id="panel-exhibition">
-      <p class="reveal" style="color:var(--forest-mid);font-weight:500;margin-bottom:16px;">在上海 fotografiska</p>
-      <div class="gallery reveal">
-        <img src="images/img10.webp" alt="fotografiska1" loading="lazy">
-        <img src="images/img11.webp" alt="fotografiska2" loading="lazy">
-        <img src="images/img12.webp" alt="fotografiska3" loading="lazy">
-      </div>
-      <p class="reveal" style="color:var(--forest-mid);font-weight:500;margin:24px 0 16px;">在上海历史博物馆 · 南京西路一带</p>
-      <div class="gallery reveal">
-        <img src="images/img13.webp" alt="历史博物馆1" loading="lazy">
-        <img src="images/img14.webp" alt="历史博物馆2" loading="lazy">
-        <img src="images/img15.webp" alt="历史博物馆3" loading="lazy">
+      <div class="show-grid">
+        <div class="show-card clickable album-trigger reveal" data-album="exh-foto">
+          <div class="show-card-img"><img src="images/img10.webp" alt="fotografiska" loading="lazy"></div>
+          <div class="show-card-body"><h4>上海 fotografiska</h4><p>&nbsp;</p></div>
+        </div>
+        <div class="show-card clickable album-trigger reveal" data-album="exh-museum">
+          <div class="show-card-img"><img src="images/img13.webp" alt="上海历史博物馆" loading="lazy"></div>
+          <div class="show-card-body"><h4>上海历史博物馆</h4><p>南京西路一带</p></div>
+        </div>
       </div>
     </div>
 
     <!-- Travel -->
     <div class="hobby-panel" id="panel-travel">
-      <p class="reveal" style="color:var(--text-soft);text-align:center;margin-bottom:20px;">大一去了一些地方～</p>
-      <p class="reveal" style="color:var(--forest-mid);font-weight:500;">乌镇戏剧节</p>
-      <div class="gallery reveal">
-        <img src="images/img16.webp" alt="乌镇1" loading="lazy"><img src="images/img17.webp" alt="乌镇2" loading="lazy"><img src="images/img18.webp" alt="乌镇3" loading="lazy">
+      <p class="reveal panel-intro">大一去了一些地方～</p>
+
+      <div class="show-grid">
+        <div class="show-card clickable album-trigger reveal" data-album="travel-wuzhen">
+          <div class="show-card-img"><img src="images/img16.webp" alt="乌镇戏剧节" loading="lazy"></div>
+          <div class="show-card-body"><h4>乌镇戏剧节</h4><p>&nbsp;</p></div>
+        </div>
+        <div class="show-card clickable album-trigger reveal" data-album="travel-beijing">
+          <div class="show-card-img"><img src="images/img19.webp" alt="北京的秋天" loading="lazy"></div>
+          <div class="show-card-body"><h4>北京的秋天</h4><p>&nbsp;</p></div>
+        </div>
+        <div class="show-card reveal">
+          <div class="show-card-img"><img src="images/img22.webp" alt="上海" loading="lazy"></div>
+          <div class="show-card-body"><h4>上海</h4><p>&nbsp;</p></div>
+        </div>
+        <div class="show-card clickable album-trigger reveal" data-album="travel-nanjing">
+          <div class="show-card-img"><img src="images/img23.webp" alt="南京" loading="lazy"></div>
+          <div class="show-card-body"><h4>南京</h4><p>&nbsp;</p></div>
+        </div>
+        <div class="show-card clickable album-trigger reveal" data-album="travel-nanxun">
+          <div class="show-card-img"><img src="images/img25.webp" alt="湖州南浔" loading="lazy"></div>
+          <div class="show-card-body"><h4>湖州南浔</h4><p>&nbsp;</p></div>
+        </div>
+        <div class="show-card clickable album-trigger reveal" data-album="travel-dongbei">
+          <div class="show-card-img"><img src="images/img27.webp" alt="东北看雪" loading="lazy"></div>
+          <div class="show-card-body"><h4>东北看雪</h4><p>&nbsp;</p></div>
+        </div>
       </div>
-      <p class="reveal" style="color:var(--forest-mid);font-weight:500;margin-top:24px;">北京的秋天</p>
-      <div class="gallery reveal">
-        <img src="images/img19.webp" alt="北京1" loading="lazy"><img src="images/img20.webp" alt="北京2" loading="lazy"><img src="images/img21.webp" alt="北京3" loading="lazy">
-      </div>
-      <p class="reveal" style="color:var(--forest-mid);font-weight:500;margin-top:24px;">上海</p>
-      <div class="gallery reveal"><img src="images/img22.webp" alt="上海" loading="lazy"></div>
-      <p class="reveal" style="color:var(--forest-mid);font-weight:500;margin-top:24px;">南京</p>
-      <div class="gallery reveal"><img src="images/img23.webp" alt="南京1" loading="lazy"><img src="images/img24.webp" alt="南京2" loading="lazy"></div>
-      <p class="reveal" style="color:var(--forest-mid);font-weight:500;margin-top:24px;">湖州南浔</p>
-      <div class="gallery reveal"><img src="images/img25.webp" alt="南浔1" loading="lazy"><img src="images/img26.webp" alt="南浔2" loading="lazy"></div>
-      <p class="reveal" style="color:var(--forest-mid);font-weight:500;margin-top:24px;">去了东北看雪 ^ ^</p>
-      <div class="gallery reveal">
-        <img src="images/img27.webp" alt="东北1" loading="lazy"><img src="images/img28.webp" alt="东北2" loading="lazy"><img src="images/img29.webp" alt="东北3" loading="lazy">
-      </div>
+
       <p class="reveal" style="text-align:center;color:var(--text-soft);margin-top:24px;">未来想走遍更多地方～</p>
     </div>
 
@@ -707,6 +908,7 @@ footer .heart { color:var(--gold); }
       </div>
     </div>
   </div>
+  <div class="section-nav" data-target="#goals"></div>
 </section>
 
 <div class="leaf-divider">🌱</div>
@@ -741,6 +943,7 @@ footer .heart { color:var(--gold); }
       </div>
     </div>
   </div>
+  <div class="section-nav" data-target="#words"></div>
 </section>
 
 <div class="leaf-divider">🍂</div>
@@ -754,47 +957,102 @@ footer .heart { color:var(--gold); }
     </div>
 
     <div class="words-block reveal reveal-delay-1">
-      <h5>关于理想主义</h5>
-      <p>我是一个有些理想主义的人，希望成为一个能影响他人、（小小）让世界变得更好的人。正如高中的校训所言，"深圳中学致力于培养个性鲜明、充满自信、敢于负责，具有思想力、领导力、创造力的杰出公民。他们无论身在何处，都能热忱服务社会，并在其中表现出对自然的尊重和对他人的关爱。"</p>
+      <h5 class="words-toggle"><span>关于理想主义</span><span class="words-chevron">▾</span></h5>
+      <div class="words-body">
+        <p>我是一个有些理想主义的人，希望成为一个能影响他人、（小小）让世界变得更好的人。正如高中的校训所言，"深圳中学致力于培养个性鲜明、充满自信、敢于负责，具有思想力、领导力、创造力的杰出公民。他们无论身在何处，都能热忱服务社会，并在其中表现出对自然的尊重和对他人的关爱。"</p>
+      </div>
     </div>
 
     <div class="words-block reveal reveal-delay-1">
-      <h5>关于现实与理想</h5>
-      <p>我憧憬成为一个"自由而无用的人"（"做一个自由而无用的人"，这是复旦流传的一句话。被发现了我是精神复旦人来的🙈...虽然我们浙也很好）。但我也不能摆脱世俗的优绩主义路径，比如卷绩点、比如为实习和创赛焦虑。我想，或许有一天我会攒够足够的能力，可以摆脱外在的评价，真正走出自己的路。</p>
+      <h5 class="words-toggle"><span>关于现实与理想</span><span class="words-chevron">▾</span></h5>
+      <div class="words-body">
+        <p>我憧憬成为一个"自由而无用的人"（"做一个自由而无用的人"，这是复旦流传的一句话。被发现了我是精神复旦人来的🙈...虽然我们浙也很好）。但我也不能摆脱世俗的优绩主义路径，比如卷绩点、比如为实习和创赛焦虑。我想，或许有一天我会攒够足够的能力，可以摆脱外在的评价，真正走出自己的路。</p>
+      </div>
     </div>
 
     <div class="words-block reveal reveal-delay-2">
-      <h5>关于未来规划</h5>
-      <p>我在大一做了一些探索，学工、创赛、实习......（科研目前还没有尝试，但也是我未来想探索的领域^ ^）我找到了自己不喜欢的东西，但尚未明确未来的方向。我想，做一些有用、有趣的事情吧！未来的路会一点点清晰～</p>
+      <h5 class="words-toggle"><span>关于未来规划</span><span class="words-chevron">▾</span></h5>
+      <div class="words-body">
+        <p>我在大一做了一些探索，学工、创赛、实习......（科研目前还没有尝试，但也是我未来想探索的领域^ ^）我找到了自己不喜欢的东西，但尚未明确未来的方向。我想，做一些有用、有趣的事情吧！未来的路会一点点清晰～</p>
+      </div>
     </div>
 
     <div class="words-block reveal reveal-delay-2">
-      <h5>关于美</h5>
-      <p>在AI时代，审美是一种核心素养（我自封的hh）。我也想用"美"，作为自身对抗算法和一切纯技术无美感现实的手段。也算是美的无用之用吧！</p>
+      <h5 class="words-toggle"><span>关于美</span><span class="words-chevron">▾</span></h5>
+      <div class="words-body">
+        <p>在AI时代，审美是一种核心素养（我自封的hh）。我也想用"美"，作为自身对抗算法和一切纯技术无美感现实的手段。也算是美的无用之用吧！</p>
+      </div>
     </div>
 
     <div class="words-block reveal reveal-delay-3">
-      <h5>关于恋爱</h5>
-      <p>和男朋友从高中走到大学，现在他在北京，每次见面，既是约会也是旅行。我去北京找他，看我没看过的秋天。他来杭州找我，我们一起走西湖。</p>
-      <div class="words-image"><img src="images/img30.webp" alt="西湖" loading="lazy"></div>
-    </div>
-
-    <div class="words-block reveal reveal-delay-3">
-      <h5>我想说</h5>
-      <p>其实我觉得"个人说明书"这个说法有些奇怪，因为我并不是产品，他人无法照着说明书来使用我。不过我很愿意和大家通过说明书的交换建立起联系～～在说明书外，我更期待和大家有真实温暖的接触，共同感受生活的细腻和粗粝。</p>
-      <p>说实话，我又e又i，我能很快和陌生人开启交谈，但我并不能完全打开自我，而是需要一段时间和他人建立信任。信任建立后就会变成小喇叭，有很多很多小话想要分享。所以这次说明书的写作也是我主动打开自我的一次尝试吧啊啊啊（其实还是有些不好意思喵喵</p>
-      <p style="color:var(--forest-mid);font-weight:500;">希望在xlab收获好朋友！收获成长 ^ ^</p>
+      <h5 class="words-toggle"><span>关于恋爱</span><span class="words-chevron">▾</span></h5>
+      <div class="words-body">
+        <p>和男朋友从高中走到大学，现在他在北京，每次见面，既是约会也是旅行。我去北京找他，看我没看过的秋天。他来杭州找我，我们一起走西湖。</p>
+        <div class="words-image"><img src="images/img30.webp" alt="西湖" loading="lazy"></div>
+      </div>
     </div>
   </div>
+  <div class="section-nav" data-target="#footer"></div>
 </section>
 
 <!-- Footer -->
-<footer>
+<footer id="footer">
   <p class="footer-quote">"出发，到新的爱与喧嚣中去。"</p>
   <p>彭诗瑄 · 一寸欢喜</p>
   <p style="font-size:.8rem;color:rgba(255,255,255,0.5);">pengshixuan@zju.edu.cn</p>
   <p style="margin-top:20px;font-size:.8rem;color:rgba(255,255,255,0.4);">Made with <span class="heart">♥</span> & Claude</p>
 </footer>
+
+<!-- Album data (hidden) -->
+<div class="album-data" id="album-data-photo-nye">
+  <img src="images/img04.webp" alt="浙大新年狂欢夜1">
+  <img src="images/img05.webp" alt="浙大新年狂欢夜2">
+  <img src="images/img06.webp" alt="浙大新年狂欢夜3">
+</div>
+<div class="album-data" id="album-data-photo-media">
+  <img src="images/img07.webp" alt="传媒学院新年晚会1">
+  <img src="images/img08.webp" alt="传媒学院新年晚会2">
+</div>
+<div class="album-data" id="album-data-exh-foto">
+  <img src="images/img10.webp" alt="fotografiska1">
+  <img src="images/img11.webp" alt="fotografiska2">
+  <img src="images/img12.webp" alt="fotografiska3">
+</div>
+<div class="album-data" id="album-data-exh-museum">
+  <img src="images/img13.webp" alt="上海历史博物馆1">
+  <img src="images/img14.webp" alt="上海历史博物馆2">
+  <img src="images/img15.webp" alt="上海历史博物馆3">
+</div>
+<div class="album-data" id="album-data-travel-wuzhen">
+  <img src="images/img16.webp" alt="乌镇1">
+  <img src="images/img17.webp" alt="乌镇2">
+  <img src="images/img18.webp" alt="乌镇3">
+</div>
+<div class="album-data" id="album-data-travel-beijing">
+  <img src="images/img19.webp" alt="北京1">
+  <img src="images/img20.webp" alt="北京2">
+  <img src="images/img21.webp" alt="北京3">
+</div>
+<div class="album-data" id="album-data-travel-nanjing">
+  <img src="images/img23.webp" alt="南京1">
+  <img src="images/img24.webp" alt="南京2">
+</div>
+<div class="album-data" id="album-data-travel-nanxun">
+  <img src="images/img25.webp" alt="南浔1">
+  <img src="images/img26.webp" alt="南浔2">
+</div>
+<div class="album-data" id="album-data-travel-dongbei">
+  <img src="images/img27.webp" alt="东北1">
+  <img src="images/img28.webp" alt="东北2">
+  <img src="images/img29.webp" alt="东北3">
+</div>
+
+<!-- Album Viewer Overlay -->
+<div class="album-viewer" id="albumViewer">
+  <div class="album-viewer-bg" id="albumViewerBg"></div>
+  <div class="album-viewer-close" id="albumViewerClose"></div>
+  <div class="album-viewer-content" id="albumViewerContent"></div>
+</div>
 
 <!-- Lightbox -->
 <div class="lightbox" id="lightbox"><img src="" alt="" id="lightbox-img"></div>
@@ -831,23 +1089,85 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+// ── Section Navigator (down arrows) ──
+document.querySelectorAll('.section-nav').forEach(arrow => {
+  arrow.addEventListener('click', () => {
+    const target = document.querySelector(arrow.dataset.target);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+
 // ── Hobby Tabs ──
 document.querySelectorAll('.hobby-tab').forEach(tab => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('.hobby-tab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.hobby-panel').forEach(p => p.classList.remove('active'));
     tab.classList.add('active');
-    document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
-    // Re-observe revealed elements in newly active panel
-    document.querySelectorAll('#panel-' + tab.dataset.tab + ' .reveal:not(.visible)').forEach(el => observer.observe(el));
+    const panel = document.getElementById('panel-' + tab.dataset.tab);
+    panel.classList.add('active');
+    panel.querySelectorAll('.reveal:not(.visible)').forEach(el => observer.observe(el));
+  });
+});
+
+// ── Album Viewer (flip overlay) ──
+const albumViewer = document.getElementById('albumViewer');
+const albumViewerContent = document.getElementById('albumViewerContent');
+const albumViewerBg = document.getElementById('albumViewerBg');
+const albumViewerClose = document.getElementById('albumViewerClose');
+
+function openAlbumViewer(albumId) {
+  const dataEl = document.getElementById('album-data-' + albumId);
+  if (!dataEl) return;
+  const imgs = dataEl.querySelectorAll('img');
+  albumViewerContent.innerHTML = '';
+  imgs.forEach(img => {
+    const clone = img.cloneNode(true);
+    clone.loading = 'lazy';
+    albumViewerContent.appendChild(clone);
+  });
+  albumViewer.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeAlbumViewer() {
+  albumViewer.classList.remove('open');
+  document.body.style.overflow = '';
+  setTimeout(() => { albumViewerContent.innerHTML = ''; }, 400);
+}
+
+document.querySelectorAll('.album-trigger').forEach(trigger => {
+  trigger.addEventListener('click', (e) => {
+    // don't open viewer if clicking to open lightbox
+    if (e.target.tagName === 'IMG' && !trigger.classList.contains('album-trigger')) return;
+    openAlbumViewer(trigger.dataset.album);
+  });
+});
+
+albumViewerBg.addEventListener('click', closeAlbumViewer);
+albumViewerClose.addEventListener('click', closeAlbumViewer);
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && albumViewer.classList.contains('open')) {
+    closeAlbumViewer();
+  }
+});
+
+// ── Words Toggle (collapsible blocks) ──
+document.querySelectorAll('.words-toggle').forEach(toggle => {
+  toggle.addEventListener('click', () => {
+    toggle.parentElement.classList.toggle('expanded');
   });
 });
 
 // ── Lightbox ──
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightbox-img');
-document.querySelectorAll('.gallery img, .words-image img, .show-item img').forEach(img => {
-  img.addEventListener('click', () => {
+document.querySelectorAll('.show-card-img img, .words-image img, .lightbox-trigger').forEach(img => {
+  img.addEventListener('click', (e) => {
+    // Don't trigger lightbox for album-trigger cards — they open the album viewer instead
+    if (img.closest('.album-trigger')) return;
+    e.stopPropagation();
     lightboxImg.src = img.src;
     lightbox.classList.add('open');
   });
